@@ -1,22 +1,24 @@
-1|1|kommando: ny| skapa en ny uppgift|
+1|1|kommando: ny|skapa en ny uppgift|
 1|1|kommando: ny /uppgift/|skapa en ny uppgift med namnet /uppgift/|
-2|2|kommando: redigera /uppgift/| skapa en ny uppgift med namnet /uppgift/|
-2|2|kommando: kopiera /uppgift/| redigera en uppgift med namnet /uppgift/ till namnet /uppgift, 2/, kopian skall ha samma prioritet, men vara Active|
-1|2|kommando: lista väntande| skapa en ny uppgift|
 1|1|kommando: spara| spara uppgifterna|
-2|2|kommando: spara /fil/| spara uppgifterna på filen /fil/|
-1|1|kommando: ladda| ladda listan todo.lis|
-2|2|kommando: ladda /fil/| ladda filen fil|
 1|1|kommando: aktivera /uppgift/| sätt status på uppgift till Active|
 1|1|kommando: klar /uppgift/| sätt status på uppgift till Ready|
 1|1|kommando: vänta /uppgift/| sätt status på uppgift till Waiting|
 1|1|kommando: sluta| spara senast laddade filen och avsluta programmet!|
+2|2|kommando: kopiera /uppgift/| redigera en uppgift med namnet /uppgift/ till namnet /uppgift, 2/, kopian skall ha samma prioritet, men vara Active|
+2|2|kommando: spara /fil/| spara uppgifterna på filen /fil/|
+2|2|kommando: redigera /uppgift/| skapa en ny uppgift med namnet /uppgift/|
 2|4|enum alla constaner| Ändra konstanterna till enum|
+3|1|kommando: Göra om menysystemet för ta argument| Måste göras för bättre lösning för kunna ta argument till ladda "fil"|
+3|1|kommando: ladda /fil/| ladda filen fil|
+3|1|kommando: ladda| ladda listan todo.lis|
 3|4|Privatisera attributen| gör attributen till privata|
 3|4|Properties get and set| getters och setters för attributen|
-3|4|kommando: lista|  lista alla Active uppgifter, status, prioritet, och namn på uppgiften|
-3|4|kommando: lista allt| lista alla uppgifter (oavsett status), status, prioritet, och namn på uppgiften|
-3|4|kommando: beskriv| lista alla Active uppgifter, status, prioritet, namn och beskrivning|
-3|4|kommando: beskriv allt| lista alla uppgifter (oavsett status), status, prioritet, namn och beskrivning|
+3|1|kommando: lista|  lista alla Active uppgifter, status, prioritet, och namn på uppgiften|
+3|1|kommando: lista allt| lista alla uppgifter (oavsett status), status, prioritet, och namn på uppgiften|
+3|1|kommando: beskriv| lista alla Active uppgifter, status, prioritet, namn och beskrivning|
+3|1|kommando: beskriv allt| lista alla uppgifter (oavsett status), status, prioritet, namn och beskrivning|
+3|1|kommando: lista klara| listar alla klara uppgifter|
+3|1|kommando: lista väntande| listar alla väntande uppgifter|
 
 

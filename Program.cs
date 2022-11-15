@@ -1,4 +1,8 @@
-﻿namespace DTP_D17_hemtentamen
+﻿using System.ComponentModel.Design;
+using System.Globalization;
+using System.IO.Enumeration;
+
+namespace DTP_D17_hemtentamen
 {
     public class Todo
     {
@@ -54,9 +58,8 @@
                     Console.WriteLine();
             }
         }
-        public static void ReadListFromFile()
-        {
-            string todoFileName = "todo.lis";
+        public static void ReadListFromFile(string todoFileName)
+        {           
             Console.Write($"Läser från fil {todoFileName} ... ");
             StreamReader sr = new StreamReader(todoFileName);
             int numRead = 0;
@@ -75,6 +78,7 @@
         {
             if (head)
             {
+                Console.WriteLine();
                 Console.Write("|status      |prio  |namn                |");
                 if (verbose) Console.WriteLine("beskrivning                             |");
                 else Console.WriteLine();
@@ -95,31 +99,45 @@
         {
             PrintHead(verbose);
             if(allt == null)
-            foreach (TodoItem item in list)
-            {
-                if(item.Status == Active )
-                item.Print(verbose);
-            }
+            WhatToPrint(Active,verbose);
+
+            else if (allt == "klara")
+            WhatToPrint(Ready,verbose);
+
+            else if(allt == "väntande")
+            WhatToPrint(Waiting,verbose);
             else
             {
-                foreach (TodoItem item in list)
-                {
-                   
-                        item.Print(verbose);
-                }
+              foreach (TodoItem item in list)
+              {
+                  item.Print(verbose);
+              }
             }
 
             PrintFoot(verbose);
         }
+
+        private static void WhatToPrint(int status, bool verbose)
+        {
+            foreach (TodoItem item in list)
+            {
+                if (item.Status == status)
+                    item.Print(verbose);
+
+            }
+        }
+
         public static void PrintHelp()
         {
             Console.WriteLine("Kommandon:");
             Console.WriteLine("hjälp            lista denna hjälp");
-            Console.WriteLine("lista            lista aktiva uppgfiter från att-göra-listan");
-            Console.WriteLine("lista allt     lista alla uppgifter från att-göra-listan");
+            Console.WriteLine("lista            lista alla aktiva uppgfiter från att-göra-listan");
+            Console.WriteLine("lista väntande   lista alla väntande uppgifter från att-göra-listan");
+            Console.WriteLine("lista klara      lista alla klara uppgifter från att-göra-listan");
+            Console.WriteLine("lista allt       lista alla uppgifter från att-göra-listan");
             Console.WriteLine("Beskriv          lista aktiva uppgifter från att-göra-listan med beskrivning");
-            Console.WriteLine("beskriv allt   lista alla uppgifter från att-göra-listan med beskrivning");
-            Console.WriteLine("sluta         spara att-göra-listan och sluta");
+            Console.WriteLine("beskriv allt     lista alla uppgifter från att-göra-listan med beskrivning");
+            Console.WriteLine("sluta            spara att-göra-listan och sluta");
         }
 
     }
@@ -129,74 +147,75 @@
         {
             
             Console.WriteLine("Välkommen till att-göra-listan!");
-            Todo.ReadListFromFile();
             Todo.PrintHelp();
-            string command;
+            string[] command;
             do
             {
-                command = MyIO.ReadCommand("> ");
-                if (MyIO.Equals(command, "hjälp"))
+                command = MyIO.ReadCommand();
+                if (MyIO.Equals(command[0], "hjälp"))
                 {
                     Todo.PrintHelp();
                 }
-                else if (MyIO.Equals(command, "sluta"))
+                else if (MyIO.Equals(command[0], "sluta"))
                 {
                     Console.WriteLine("Hej då!");
                     break;
                 }
-                else if (MyIO.Equals(command, "lista"))
+                else if (command[0] == "lista")
                 {
-                    if (MyIO.HasArgument(command, "allt"))
+                    if(command.Length < 2) 
+                        Todo.PrintTodoList(allt: null, verbose: false);
+
+                    else if (command.Length >= 2 && command[1] == "allt")
                         Todo.PrintTodoList("allt", verbose: false);
+                    else if (command.Length >= 2 && command[1] == "klara")
+                        Todo.PrintTodoList("klara", verbose: false);
+                    else if (command.Length >= 2 && command[1] == "väntande")
+                        Todo.PrintTodoList("väntande", verbose: false);
                     else
                         Todo.PrintTodoList(allt: null, verbose: false);
                 }
-                else if (MyIO.Equals(command, "beskriv"))
+                else if (command[0] == "beskriv")
                 {
-                    if (MyIO.HasArgument(command, "allt"))
-                        Todo.PrintTodoList("allt", verbose: true);
-                    else
+                    if(command.Length < 2)
                         Todo.PrintTodoList(allt: null, verbose: true);
+                    else
+                        Todo.PrintTodoList("allt", verbose: true); ;
+                }
+
+                else if (command[0] == "ladda")
+                {
+
+                    
+                    if (command.Length < 2)
+                    {
+            
+                        Todo.ReadListFromFile("todo.lis");
+                    }
+
+                    else
+                        Todo.ReadListFromFile(command[1]);
                 }
 
 
+                
                 else
                 {
                     Console.WriteLine($"Okänt kommando: {command}");
                 }
+                
             }
             while (true);
         }
     }
     class MyIO
     {
-        static public string ReadCommand(string prompt)
+        static public string[] ReadCommand()
         {
-            Console.Write(prompt);
-            return Console.ReadLine();
-        }
-        static public bool Equals(string rawCommand, string expected)
-        {
-            string command = rawCommand.Trim();
-            if (command == "") return false;
-            else
-            {
-                string[] cwords = command.Split(' ');
-                if (cwords[0] == expected) return true;
-            }
-            return false;
-        }
-        static public bool HasArgument(string rawCommand, string expected)
-        {
-            string command = rawCommand.Trim();
-            if (command == "") return false;
-            else
-            {
-                string[] cwords = command.Split(' ');
-                if (cwords.Length < 2) return false;
-                if (cwords[1] == expected) return true;
-            }
-            return false;
+            string command = Convert.ToString(Console.ReadLine());
+            string[] rawcommand = command.Split(" ");
+            Console.Write("> ");
+            return rawcommand;
         }
     }
 }
