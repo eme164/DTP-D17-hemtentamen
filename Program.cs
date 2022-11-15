@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Design;
+﻿using System;
+using System.ComponentModel.Design;
 using System.Globalization;
 using System.IO.Enumeration;
 
@@ -33,6 +34,21 @@ namespace DTP_D17_hemtentamen
                 get { return status; }
                 set { status = value; }
             }
+            public int Priority
+            {
+                get { return priority; }
+                set { priority = value; }
+            }
+            public string Task
+            {
+                get { return task; }
+                set { task = value; }
+            }
+            public string TaskDescription
+            {
+                get { return taskDescription; }
+                set { taskDescription = value; }
+            }
             public TodoItem(int priority, string task)
             {
                 this.status = Active;
@@ -63,9 +79,10 @@ namespace DTP_D17_hemtentamen
             Console.Write($"Läser från fil {todoFileName} ... ");
             StreamReader sr = new StreamReader(todoFileName);
             int numRead = 0;
+            list.Clear();
 
             string line;
-            while ((line = sr.ReadLine()) != null)
+            while ((line = sr.ReadLine()) != null) 
             {
                 TodoItem item = new TodoItem(line);
                 list.Add(item);
@@ -73,6 +90,20 @@ namespace DTP_D17_hemtentamen
             }
             sr.Close();
             Console.WriteLine($"Läste {numRead} rader.");
+        }
+        public static void WritelistTofile(string Filename)
+        {
+            
+            Console.WriteLine($"Sparar till filen: {Filename} ");
+            StreamWriter sw = new StreamWriter(Filename);
+            foreach (TodoItem uppgift in list)
+            {
+                if (uppgift != null)
+
+                    sw.WriteLine($"{uppgift.Status}|{uppgift.Priority}|{uppgift.Task}|{uppgift.TaskDescription}");
+            }
+            sw.Close();
+
         }
         private static void PrintHeadOrFoot(bool head, bool verbose)
         {
@@ -135,8 +166,12 @@ namespace DTP_D17_hemtentamen
             Console.WriteLine("lista väntande   lista alla väntande uppgifter från att-göra-listan");
             Console.WriteLine("lista klara      lista alla klara uppgifter från att-göra-listan");
             Console.WriteLine("lista allt       lista alla uppgifter från att-göra-listan");
-            Console.WriteLine("Beskriv          lista aktiva uppgifter från att-göra-listan med beskrivning");
+            Console.WriteLine("beskriv          lista aktiva uppgifter från att-göra-listan med beskrivning");
             Console.WriteLine("beskriv allt     lista alla uppgifter från att-göra-listan med beskrivning");
+            Console.WriteLine("ladda            Laddar listan 'todo.lis'");
+            Console.WriteLine("ladda /fil/      Laddar filen /fil/ ");
+            Console.WriteLine("spara            sparar listan 'todo.lis'");
+            Console.WriteLine("spara /fil/      sparar listan till /fil/(om inte finns, skapar)");
             Console.WriteLine("sluta            spara att-göra-listan och sluta");
         }
 
@@ -149,6 +184,7 @@ namespace DTP_D17_hemtentamen
             Console.WriteLine("Välkommen till att-göra-listan!");
             Todo.PrintHelp();
             string[] command;
+            string Filename = "todo.lis";
             do
             {
                 command = MyIO.ReadCommand();
@@ -163,9 +199,8 @@ namespace DTP_D17_hemtentamen
                 }
                 else if (command[0] == "lista")
                 {
-                    if(command.Length < 2) 
+                    if (command.Length < 2)
                         Todo.PrintTodoList(allt: null, verbose: false);
-
                     else if (command.Length >= 2 && command[1] == "allt")
                         Todo.PrintTodoList("allt", verbose: false);
                     else if (command.Length >= 2 && command[1] == "klara")
@@ -177,7 +212,7 @@ namespace DTP_D17_hemtentamen
                 }
                 else if (command[0] == "beskriv")
                 {
-                    if(command.Length < 2)
+                    if (command.Length < 2)
                         Todo.PrintTodoList(allt: null, verbose: true);
                     else
                         Todo.PrintTodoList("allt", verbose: true); ;
@@ -185,25 +220,24 @@ namespace DTP_D17_hemtentamen
 
                 else if (command[0] == "ladda")
                 {
-
-                    
                     if (command.Length < 2)
                     {
-            
-                        Todo.ReadListFromFile("todo.lis");
+                        Todo.ReadListFromFile(Filename);
                     }
-
                     else
                         Todo.ReadListFromFile(command[1]);
                 }
-
-
-                
+                else if (command[0] == "spara")
+                {
+                    if (command.Length < 2)
+                        Todo.WritelistTofile(Filename);
+                    else
+                        Todo.WritelistTofile(command[1]);
+                }
                 else
                 {
-                    Console.WriteLine($"Okänt kommando: {command}");
-                }
-                
+                    Console.WriteLine($"Okänt kommando: {command[0]}");
+                }               
             }
             while (true);
         }
