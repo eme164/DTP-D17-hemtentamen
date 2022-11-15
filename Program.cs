@@ -19,10 +19,10 @@
         }
         public class TodoItem
         {
-            public int status;
-            public int priority;
-            public string task;
-            public string taskDescription;
+            private int status;
+            private int priority;
+            private string task;
+            private string taskDescription;
             public TodoItem(int priority, string task)
             {
                 this.status = Active;
@@ -106,7 +106,7 @@
     {
         public static void Main(string[] args)
         {
-            //main
+            
             Console.WriteLine("Välkommen till att-göra-listan!");
             Todo.ReadListFromFile();
             Todo.PrintHelp();
