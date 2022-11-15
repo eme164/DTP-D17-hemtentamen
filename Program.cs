@@ -23,6 +23,12 @@
             private int priority;
             private string task;
             private string taskDescription;
+
+            public int Status
+            {
+                get { return status; }
+                set { status = value; }
+            }
             public TodoItem(int priority, string task)
             {
                 this.status = Active;
@@ -85,22 +91,37 @@
         {
             PrintHeadOrFoot(head: false, verbose);
         }
-        public static void PrintTodoList(bool verbose = false)
+        public static void PrintTodoList(string allt , bool verbose = false)
         {
             PrintHead(verbose);
+            if(allt == null)
             foreach (TodoItem item in list)
             {
+                if(item.Status == Active )
                 item.Print(verbose);
             }
+            else
+            {
+                foreach (TodoItem item in list)
+                {
+                   
+                        item.Print(verbose);
+                }
+            }
+
             PrintFoot(verbose);
         }
         public static void PrintHelp()
         {
             Console.WriteLine("Kommandon:");
-            Console.WriteLine("hjälp    lista denna hjälp");
-            Console.WriteLine("lista    lista att-göra-listan");
-            Console.WriteLine("sluta    spara att-göra-listan och sluta");
+            Console.WriteLine("hjälp            lista denna hjälp");
+            Console.WriteLine("lista            lista aktiva uppgfiter från att-göra-listan");
+            Console.WriteLine("lista allt     lista alla uppgifter från att-göra-listan");
+            Console.WriteLine("Beskriv          lista aktiva uppgifter från att-göra-listan med beskrivning");
+            Console.WriteLine("beskriv allt   lista alla uppgifter från att-göra-listan med beskrivning");
+            Console.WriteLine("sluta         spara att-göra-listan och sluta");
         }
+
     }
     class MainClass
     {
@@ -126,10 +147,19 @@
                 else if (MyIO.Equals(command, "lista"))
                 {
                     if (MyIO.HasArgument(command, "allt"))
-                        Todo.PrintTodoList(verbose: true);
+                        Todo.PrintTodoList("allt", verbose: false);
                     else
-                        Todo.PrintTodoList(verbose: false);
+                        Todo.PrintTodoList(allt: null, verbose: false);
                 }
+                else if (MyIO.Equals(command, "beskriv"))
+                {
+                    if (MyIO.HasArgument(command, "allt"))
+                        Todo.PrintTodoList("allt", verbose: true);
+                    else
+                        Todo.PrintTodoList(allt: null, verbose: true);
+                }
+
+
                 else
                 {
                     Console.WriteLine($"Okänt kommando: {command}");
