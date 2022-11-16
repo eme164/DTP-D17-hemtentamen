@@ -96,15 +96,18 @@ namespace DTP_D17_hemtentamen
             }
             else if(ReEllerKop == "kopiera")
             {
-                int count = 0;
+                int count = 1;
                 foreach(TodoItem item in list)
                 {
                     
                     if(item.Task == uppgift)
                     {
-                        list.Insert(count,item);
+                        TodoItem newitem = new TodoItem(2, uppgift);
+                        list.Insert(count,newitem);
                         list[count].Status = Active;
-                        list[count].Task = uppgift + ", 2";
+                        list[count].Task = uppgift + $", 2";
+                        list[count].Priority = list[count - 1].Priority;
+                        list[count].TaskDescription = list[count - 1].TaskDescription;     
                         break;
                     }
                     count++;
@@ -233,12 +236,10 @@ namespace DTP_D17_hemtentamen
             else if (allt == "väntande")
                 WhatToPrint(Waiting, verbose);
             else
-            {
                 foreach (TodoItem item in list)
                 {
                     item.Print(verbose);
                 }
-            }
             PrintFoot(verbose);
         }
         private static void WhatToPrint(int status, bool verbose)
@@ -287,9 +288,7 @@ namespace DTP_D17_hemtentamen
             {
                 command = MyIO.ReadCommand();
                 if (MyIO.Equals(command[0], "hjälp"))
-                {
                     Todo.PrintHelp();
-                }
                 else if (MyIO.Equals(command[0], "sluta"))
                 {
                     Todo.WritelistTofile(lastFilename);
@@ -297,7 +296,6 @@ namespace DTP_D17_hemtentamen
                     break;
                 }
                 else if (command[0] == "lista")
-                {
                     if (command.Length < 2)
                         Todo.PrintTodoList(allt: null, verbose: false);
                     else if (command.Length >= 2 && command[1] == "allt")
@@ -308,15 +306,11 @@ namespace DTP_D17_hemtentamen
                         Todo.PrintTodoList("väntande", verbose: false);
                     else
                         Todo.PrintTodoList(allt: null, verbose: false);
-                }
                 else if (command[0] == "beskriv")
-                {
                     if (command.Length < 2)
                         Todo.PrintTodoList(allt: null, verbose: true);
                     else
-                        Todo.PrintTodoList("allt", verbose: true); ;
-                }
-
+                        Todo.PrintTodoList("allt", verbose: true); 
                 else if (command[0] == "ladda")
                 {
                     if (command.Length < 2)
@@ -331,44 +325,33 @@ namespace DTP_D17_hemtentamen
                     }
                 }
                 else if (command[0] == "spara")
-                {
                     if (command.Length < 2)
                         Todo.WritelistTofile(Filename);
                     else
                         Todo.WritelistTofile(command[1]);
-                }
                 else if (command[0] == "ny")
-                {
                     if (command.Length < 2)
                         Todo.Nyuppgift();
                     else
                         Todo.Nyuppgift(command[1]);
-                }
-                else if (command[0] == "klar"|| command[0] == "aktivera"|| command[0] == "vänta")
+                else if (command[0] == "klar" || command[0] == "aktivera" || command[0] == "vänta")
                     if (command.Length < 2)
                         Console.WriteLine($"Vilken uppgift ska sättas till {command[0]}?");
                     else
-                        Todo.AndraStatus(command[0],command[1]);
+                        Todo.AndraStatus(command[0], command[1]);
 
                 else if (command[0] == "redigera")
-                {
                     if (command.Length < 2)
                         Console.WriteLine("Vilken uppgift ska redigeras?");
                     else
-                        Todo.RedigeraUppgift(command[0],command[1]);
-                }
-
+                        Todo.RedigeraUppgift(command[0], command[1]);
                 else if (command[0] == "kopiera")
-                {
                     if (command.Length < 2)
                         Console.WriteLine("Vilken uppgift ska kopieras?");
                     else
                         Todo.RedigeraUppgift(command[0], command[1]);
-                }
                 else
-                {
-                    Console.WriteLine($"Okänt kommando: {command[0]}");
-                }
+                    Console.WriteLine($"Okänt kommando: {command[0]}"); //felsök
             }
             while (true);
         }
@@ -378,8 +361,8 @@ namespace DTP_D17_hemtentamen
         static public string[] ReadCommand()
         {
             Console.Write("> ");
-            string command = Convert.ToString(Console.ReadLine());
-            string[] rawcommand = command.Split(" ");
+            string command = Convert.ToString(Console.ReadLine());;
+            string[] rawcommand = command.Trim().Split(" ");
             for (int i = 2; i < rawcommand.Length; i++)
                  rawcommand[1] = rawcommand[1] + " " + rawcommand[i];
             return rawcommand;

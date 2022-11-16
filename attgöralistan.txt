@@ -1,7 +1,7 @@
 1|4|refaktruera koden|städa koden så blir mer lätläst
 1|4|Fel söka koden|try catch throw?
-2|2|kommando: kopiera /uppgift/| redigera en uppgift med namnet /uppgift/ till namnet /uppgift, 2/, kopian skall ha samma prioritet, men vara Active|
 2|4|enum alla constaner| Ändra konstanterna till enum|
+3|2|kommando: kopiera /uppgift/| redigera en uppgift med namnet /uppgift/ till namnet /uppgift, 2/, kopian skall ha samma prioritet, men vara Active|
 3|2|kommando: redigera /uppgift/| redigera en uppgift med namnet /uppgift/|
 3|1|kommando: klar /uppgift/| sätt status på uppgift till Ready|
 3|1|kommando: vänta /uppgift/| sätt status på uppgift till Waiting|
