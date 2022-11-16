@@ -1,12 +1,14 @@
-1|1|kommando: ny|skapa en ny uppgift|
-1|1|kommando: ny /uppgift/|skapa en ny uppgift med namnet /uppgift/|
-1|1|kommando: aktivera /uppgift/| sätt status på uppgift till Active|
-1|1|kommando: klar /uppgift/| sätt status på uppgift till Ready|
-1|1|kommando: vänta /uppgift/| sätt status på uppgift till Waiting|
-1|1|kommando: sluta| spara senast laddade filen och avsluta programmet!|
+1|4|refaktruera koden|städa koden så blir mer lätläst
+1|4|Fel söka koden|try catch throw?
 2|2|kommando: kopiera /uppgift/| redigera en uppgift med namnet /uppgift/ till namnet /uppgift, 2/, kopian skall ha samma prioritet, men vara Active|
-2|2|kommando: redigera /uppgift/| skapa en ny uppgift med namnet /uppgift/|
 2|4|enum alla constaner| Ändra konstanterna till enum|
+3|2|kommando: redigera /uppgift/| redigera en uppgift med namnet /uppgift/|
+3|1|kommando: klar /uppgift/| sätt status på uppgift till Ready|
+3|1|kommando: vänta /uppgift/| sätt status på uppgift till Waiting|
+3|1|kommando: aktivera /uppgift/| sätt status på uppgift till Active|
+3|1|kommando: ny /uppgift/|skapa en ny uppgift med namnet /uppgift/|
+3|1|kommando: ny|skapa en ny uppgift|
+3|1|kommando: sluta| spara senast laddade filen och avsluta programmet!|
 3|1|kommando: spara| spara uppgifterna|
 3|2|kommando: spara /fil/| spara uppgifterna på filen /fil/|
 3|1|kommando: Göra om menysystemet för ta argument| Måste göras för bättre lösning för kunna ta argument till ladda "fil"|
