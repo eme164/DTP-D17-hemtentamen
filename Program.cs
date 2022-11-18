@@ -323,9 +323,9 @@ namespace DTP_D17_hemtentamen
             Console.WriteLine("klar     /uppgift/   sätt status på uppgift till avklarad");
             Console.WriteLine("redigera /uppgift/   redigera en uppgift med namnet /uppgift/");
             Console.WriteLine("kopiera  /uppgift/   redigera en uppgift med namnet /uppgift/ till namnet /uppgift, 2/");
-            Console.WriteLine("ladda                Laddar listan 'todo.lis'");
+            Console.WriteLine("ladda                Laddar listan 'attgöralistan.txt'");
             Console.WriteLine("ladda /fil/          Laddar filen /fil/ ");
-            Console.WriteLine("spara                sparar listan 'todo.lis'");
+            Console.WriteLine("spara                sparar listan 'attgöralistan.txt'");
             Console.WriteLine("spara /fil/          sparar listan till /fil/(om inte finns, skapar)");
             Console.WriteLine("sluta                spara att-göra-listan och sluta");
         }
@@ -339,7 +339,7 @@ namespace DTP_D17_hemtentamen
             Console.WriteLine("Välkommen till att-göra-listan!");
             Todo.PrintHelp();
             string[] command;
-            string Filename = "todo.lis";
+            string Filename = "attgöralistan.txt";
             string lastFilename = "";
             do
             {
