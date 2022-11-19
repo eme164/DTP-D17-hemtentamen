@@ -318,7 +318,7 @@ namespace DTP_D17_hemtentamen
             Console.WriteLine("lista allt           lista alla uppgifter från att-göra-listan");
             Console.WriteLine("beskriv              lista aktiva uppgifter från att-göra-listan med beskrivning");
             Console.WriteLine("beskriv allt         lista alla uppgifter från att-göra-listan med beskrivning");
-            Console.WriteLine("klar     /uppgift/   sätt status på uppgift till aktiv");
+            Console.WriteLine("aktivera    /uppgift/   sätt status på uppgift till aktiv");
             Console.WriteLine("vänta    /uppgift/   sätt status på uppgift till väntande");
             Console.WriteLine("klar     /uppgift/   sätt status på uppgift till avklarad");
             Console.WriteLine("redigera /uppgift/   redigera en uppgift med namnet /uppgift/");
